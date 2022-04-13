@@ -1,20 +1,24 @@
 {
     "config": {
         "radio-type":{
-            "help": "options are ATMEL, MCR20, SPIRIT1",
-            "value": "ATMEL"
+            "help": "options are ATMEL, MCR20, SPIRIT1, S2LP",
+            "value": "EFR32"
         },
         "backhaul-driver": {
-            "help": "options are ETH, SLIP, EMAC",
-            "value": "EMAC"
+            "help": "options are ETH, SLIP, EMAC, CELL",
+            "value": "SLIP"
         },
         "mesh-mode": {
-            "help": "Mesh networking mode. Options are LOWPAN_ND and THREAD",
+            "help": "Mesh networking mode. Options are LOWPAN_ND, LOWPAN_WS and THREAD",
             "value": "LOWPAN_ND"
         },
         "backhaul-mac-src": {
             "help": "Where to get EUI48 address. Options are BOARD, CONFIG",
             "value": "BOARD"
+        },
+        "backhaul-mld": {
+            "help": "Enable proxying Multicast Listener Discovery messages to backhaul network",
+            "value": "false"
         },
         "nanostack_extended_heap": {
             "help": "Add additional memory region to nanostack heap. Valid only for selected platforms. Region size may vary depending of the toolchain.",
@@ -41,9 +45,9 @@
         "rf-channel-mask": "0x07fff800",
         "short-mac-address": "0xface",
         "backhaul-dynamic-bootstrap": true,
-        "backhaul-prefix": "fd00:db8:ff1::",
-        "backhaul-default-route": "::/0",
-        "backhaul-next-hop": "fe80::1",
+        "backhaul-prefix": "\"fd00:db8:ff1::\"",
+        "backhaul-default-route": "\"::/0\"",
+        "backhaul-next-hop": "\"fe80::1\"",
         "ra-router-lifetime": 1024,
         "rpl-instance-id": 1,
         "rpl-idoublings": 9,
@@ -82,6 +86,19 @@
             "SERIAL_RTS": "PTE3",
             "kinetis-emac.tx-ring-len":4,
             "kinetis-emac.rx-ring-len":4
+        },
+        "K64F_STATIC_BR": {
+            "LED": "LED_GREEN",
+            "SERIAL_TX": "PTE0",
+            "SERIAL_RX": "PTE1",
+            "SERIAL_CTS": "PTE2",
+            "SERIAL_RTS": "PTE3",
+            "kinetis-emac.tx-ring-len":4,
+            "kinetis-emac.rx-ring-len":4,
+            "debug-trace": "true",
+            "pan-id": "0xABBA",
+            "rf-channel": 17,
+            "mbed-mesh-api.heap-size": 100000
         },
         "K66F": {
             "LED": "LED_GREEN",

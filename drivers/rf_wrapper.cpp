@@ -10,6 +10,7 @@
 #define NCS36510    2
 #define SPIRIT1     3 
 #define S2LP        4
+#define EFR32       5
 
 #if MBED_CONF_APP_RADIO_TYPE == ATMEL
 #include "NanostackRfPhyAtmel.h"
@@ -29,6 +30,9 @@ NanostackRfPhys2lp rf_phy(S2LP_SPI_SDI, S2LP_SPI_SDO, S2LP_SPI_SCLK, S2LP_SPI_CS
         S2LP_SPI_TEST1, S2LP_SPI_TEST2, S2LP_SPI_TEST3, S2LP_SPI_TEST4, S2LP_SPI_TEST5,
 #endif //TEST_GPIOS_ENABLED
         S2LP_SPI_GPIO0, S2LP_SPI_GPIO1, S2LP_SPI_GPIO2, S2LP_SPI_GPIO3);
+#elif MBED_CONF_APP_RADIO_TYPE == EFR32
+#include "NanostackRfPhyEfr32.h"
+NanostackRfPhyEfr32 rf_phy;
 #endif //MBED_CONF_APP_RADIO_TYPE
 
 extern "C" int8_t rf_device_register()
