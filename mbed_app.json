@@ -104,6 +104,10 @@
             "LED": "LED_GREEN",
             "kinetis-emac.tx-ring-len":4,
             "kinetis-emac.rx-ring-len":4
+        },
+        "SLWSTK6007A": {
+            "SERIAL_TX": "PC4",
+            "SERIAL_RX": "PC5"
         }
     }
 }
