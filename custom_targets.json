@@ -1,5 +1,5 @@
 {
-	"EFR32MG12P433F1024GM68": {
+    "EFR32MG12P433F1024GM68": {
         "inherits": [
             "EFM32"
         ],
@@ -39,7 +39,7 @@
             "full", "bare-metal"
         ]
     },
-	"SLWSTK6007A": {
+    "SLWSTK6007A": {
         "inherits": [
             "EFR32MG12P433F1024GM68"
         ],
