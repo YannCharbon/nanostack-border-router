@@ -25,9 +25,9 @@
             "value": false
         },
         "backhaul-mac": "{0x02, 0x00, 0x00, 0x00, 0x00, 0x01}",
-        "slip_hw_flow_control": "false",
+        "slip_hw_flow_control": "true",
         "slip_serial_baud_rate": "921600",
-        "debug-trace": "false",
+        "debug-trace": "true",
         "defined-BR-config": "true",
         "security-mode": "NONE",
         "psk-key-id": 1,
@@ -71,6 +71,7 @@
             "target.network-default-interface-type": "ETHERNET",
             "nsapi.default-stack": "NANOSTACK",
             "mbed-trace.enable": 1,
+            "mbed-trace.max-level": "TRACE_LEVEL_DEBUG",
             "nanostack.configuration": "lowpan_border_router",
             "platform.stdio-convert-newlines": true,
             "platform.stdio-baud-rate": 115200,
@@ -106,8 +107,11 @@
             "kinetis-emac.rx-ring-len":4
         },
         "SLWSTK6007A": {
+            "LED": "LED0",
             "SERIAL_TX": "PC4",
-            "SERIAL_RX": "PC5"
+            "SERIAL_RX": "PC5",
+            "SERIAL_CTS": "PC2",
+            "SERIAL_RTS": "PC3"
         }
     }
 }

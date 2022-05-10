@@ -61,6 +61,7 @@
             "RTC",
             "SERIAL",
             "SERIAL_ASYNCH",
+            "SERIAL_FC",
             "SLEEP",
             "SPI",
             "SPISLAVE",
