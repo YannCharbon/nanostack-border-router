@@ -1,9 +1,6 @@
 # Nanostack Border Router
 
-Nanostack Border Router is a generic Mbed border router implementation that provides the 6LoWPAN ND or Wi-SUN border router initialization logic. Pelion Device Management enabled border router for Wi-SUN can be found from repository [https://github.com/PelionIoT/pelion-border-router](https://github.com/PelionIoT/pelion-border-router).
-
-
-A border router is a network gateway between a wireless 6LoWPAN mesh network and a backhaul network. It controls and relays traffic between the two networks. In a typical setup, a 6LoWPAN border router is connected to another router in the backhaul network (over Ethernet, Cellular or a serial line) which in turn forwards traffic to and from the internet or a private company LAN, for instance.
+Modified Nanostack Border Router to work with Silicon Labs BRD4001A board with a BRD4170A radio. It use 6LoWPAN mesh network on the 2.4 GHz band and a SLIP interface using flow control for communicating with the backhaul network.
 
 ![](images/br_role.png)
 
@@ -27,63 +24,11 @@ mbed_app.json             Build time configuration file
 
 1. Clone this repository.
 1. Run `mbed deploy`.
-1. Add connectivity driver, if not provided by Mbed OS.
-1. Select target platform.
-1. Select toolchain.
-1. Configure.
 1. Build.
-
-For example:
-
-```
-$ mbed deploy
-
-$ mbed target K64F
- OR
-$ mbed target DISCO_F769NI
-
-$ mbed toolchain GCC_ARM
-
-$ mbed compile
-```
-
-### Adding connectivity driver
-
-This application requires the 802.15.4 RF driver to be provided for the networking stack. The driver can be either external, or provided by Mbed OS.
-
-You can add an external driver by calling:
-
-```
-mbed add <driver>
-```
-
-For example, STM Spirit1 RF driver is added by calling `mbed add stm-spirit1-rf-driver`
 
 ## Selecting the target platform
 
-The target platform is the hardware on which the border router runs. There are target platforms already available in Mbed OS.
-
-To write your own target, follow the instructions in [Adding target support to Mbed OS 5](https://os.mbed.com/docs/mbed-os/latest/porting/porting-targets.html).
-
-The border router requires an RF driver to be provided for Nanostack. Currently, there are the following drivers available in the Mbed OS:
-
-* [Atmel AT86RF233](https://github.com/ARMmbed/atmel-rf-driver).
-* [Atmel AT86RF212B](https://github.com/ARMmbed/atmel-rf-driver).
-* [NXP MCR20A](https://github.com/ARMmbed/mcr20a-rf-driver).
-* [STM-s2lp](https://github.com/ARMmbed/mbed-os/tree/master/components/802.15.4_RF).
-
-Following external driver can be added as described [above](#adding-connectivity-driver):
-
-* [STM Spirit1](https://github.com/ARMmbed/stm-spirit1-rf-driver).
-
-The backhaul is either SLIP, Ethernet or Cellular. For Ethernet either an Mbed OS "EMAC" driver can be used, or a native Nanostack driver. Currently, native Nanostack drivers exists for the following backhauls:
-
-* [K64F Ethernet](https://github.com/ARMmbed/sal-nanostack-driver-k64f-eth).
-* [SLIP driver](https://github.com/ARMmbed/sal-stack-nanostack-slip).
-
-The existing drivers are in the `drivers/` folder. More drivers can be linked in.
-
-See [Notes on different hardware](https://github.com/ARMmbed/mbed-os-example-mesh-minimal/blob/master/Hardware.md) to see known combinations that work.
+The target is already set for BRD4001A board with a BRD4170A radio.
 
 ## Configuring Nanostack Border Router
 
@@ -132,178 +77,26 @@ Nanostack Border Router offers the following configuration options for RPL:
 | rpl-pcs                             | The number of bits that may be allocated to the path control field. |
 | rpl-ocp                             | The Objective Function (OF) to use, values: 1=OF0 (default), 2=MRHOF |
 
-### Wi-SUN configuration
-
-The Wi-SUN specific parameters are listed below.
-
-| Field                               | Description                                                   |
-|-------------------------------------|---------------------------------------------------------------|
-| `network-name`                      | Network name for Wi-SUN the network, MUST be same for all the devices in the network |
-| `regulatory-domain`                 | Defines regulatory domain, refer to [ws_management_api](https://github.com/ARMmbed/mbed-os/blob/master/features/nanostack/sal-stack-nanostack/nanostack/ws_management_api.h) for correct values for your region. |
-| `operating-class`                   | Defines operating class, limited by the regulatory domain |
-| `operating-mode`                    | Defines the operating mode, limited by the regulatory domain |
-| `uc-channel-function`               | Unicast channel function |
-| `bc-channel-function`               | Broadcast channel function |
-| `uc-fixed-channel`                  | Fixed channel for unicast |
-| `bc-fixed-channel`                  | Fixed channel for broadcast |
-| `uc-dwell-interval`                 | Unicast dwell interval. Range: 15-255 milliseconds |
-| `bc-interval`                       | Broadcast interval. Duration between broadcast dwell intervals. Range: 0-16777216 milliseconds |
-| `bc-dwell-interval`                 | Broadcast dwell interval. Range: 15-255 milliseconds |
-| `certificate-header`                | Wi-SUN certificate header file |
-| `root-certificate`                  | Root certificate |
-| `own-certificate`                   | Own certificate |
-| `own-certificate-key`               | Own certificate's key |
-
-Regulatory domain, operating class and operating mode are defined in the Wi-SUN PHY-specification.
-
-<span class="notes">**Note:** The configuration examples are for testing purposes only; do not use them for production or expose them.</span>
-
 #### Backhaul connectivity
 
-The Nanostack border router application can be connected to a backhaul network. This enables you to connect the devices in a 6LoWPAN mesh network to the internet or a private LAN. The application supports SLIP (IPv6 encapsulation over a serial line), Ethernet and Cellular backhaul connectivity:
+The Nanostack border router application can be connected to a backhaul network with a SLIP interface.
+https://github.com/ARMmbed/mbed-access-point provide images for Raspberry Pi 2B and 3 for routing between SLIP and Ethernet.
 
-```
-"config": {
-    "backhaul-driver": {
-        "help": "options are ETH, SLIP, EMAC, CELL",
-        "value": "EMAC"
-    },
-    "backhaul-mac-src": {
-        "help": "Where to get EUI48 address. Options are BOARD, CONFIG",
-        "value": "BOARD"
-    },
-    "backhaul-mac": "{0x02, 0x00, 0x00, 0x00, 0x00, 0x01}",
-    "backhaul-dynamic-bootstrap": true,
-    "backhaul-prefix": "\"fd00:300::\"",
-    "backhaul-next-hop": "\"fe80::1\"",
-    "backhaul-default-route": "\"::/0\"",
-    .............
-}
-```
+| Raspberry Pi           |     | BRD4001A      |
+|------------------------|-----|---------------|
+| UART0_TXD GPIO14 J8_8  | --> | EXP14 PC5 RX  |
+| UART0_RXD GPIO15 J8_10 | <-- | EXP12 PC4 TX  |
+| UART0_CTS GPIO16 J8_36 | <-- | EXP10 PC3 RTS |
+| UART0_RTS GPIO17 J8_11 | --> | EXP8  PC2 CTS |
+| GND              J8_6  | <-> | EXP1      GND |
 
-You can select your preferred option through the configuration file (field `backhaul-driver` in the `config` section). The value `SLIP` includes the SLIP driver, and the value `ETH` compiles the border router application with Nanostack native Ethernet backhaul support. `EMAC` uses the board's default Mbed OS network driver, which must be EMAC-based (derived from EMACInterface). `CELL` uses the boards's default Mbed OS cellular device or external cellular device that is configured to provide the default cellular device.
+##### Activation of flow control on the Raspberry Pi
 
-You can define the MAC address on the backhaul interface manually (field `backhaul-mac-src` value `CONFIG`). Alternatively, you can use the MAC address provided by the development board (field `backhaul-mac-src` value `BOARD`). By default, the backhaul driver is set to `EMAC` and the MAC address source is `BOARD`.
-
-You can also set the backhaul bootstrap mode (field `backhaul-dynamic-bootstrap`). By default, the bootstrap mode is set to true, which means the autonomous mode. With the autonomous mode, the border router learns the prefix information automatically from an IPv6 gateway in the Ethernet/SLIP segment. When the parameter is set to false, it enables you to set up a manual configuration of `backhaul-prefix` and `backhaul-default-route`.
-
-If you use the static bootstrap mode, you need to configure a default route on the backhaul interface to properly forward packets between the backhaul and the 6LoWPAN mesh network. In addition to this, you need to set a backhaul prefix. The static mode creates a site-local IPv6 network from which packets cannot be routed outside.
-
-When using the autonomous mode in the 6LoWPAN ND configuration, you can set the `prefix-from-backhaul` option to `true` to use the same backhaul prefix on the mesh network side as well. This allows the mesh nodes to be directly connectable from the outside of the mesh network.
-
-For `CELL` backhaul, no configuration options for addresses are provided. Cellular backhaul device works always in autonomous mode and the border router learns the IPv6 prefix information from the cellular access.
-
-#### Note on the SLIP backhaul driver
-
-If you are using a K64F board, use the UART1 serial line of the board with the SLIP driver. See the `pins` section in the [mbed_app.json](./mbed_app.json) configuration file. To use a different UART line, replace the `SERIAL_TX` and `SERIAL_RX` values with correct TX/RX pin names.
-
-To use the hardware flow control, set the configuration field `slip_hw_flow_control` to true. By default, it is set to false. Before using hardware flow control, make sure the other end of your SLIP interface can handle the flow control.
-
-For the pin names of your desired UART line, refer to your development board's documentation.
-
-An example configuration for the SLIP driver:
-
-```
-"target_overrides": {
-    "K64F": {
-        "SERIAL_TX": "PTE0",
-        "SERIAL_RX": "PTE1",
-        "SERIAL_CTS": "PTE2",
-        "SERIAL_RTS": "PTE3"
-    }
-```
-
-#### Note on EMAC backhaul
-
-When `backhaul_driver` is set to `EMAC`, the border router uses the target's default network driver, as supplied by `NetworkInterface::get_default_instance`. This must be EMAC-based, derived from EMACInterface. If it is the same driver that a default-constructed `EthernetInterface` would use, so in principle it should work on any board where `EthernetInterface` works.
-
-To use a different interface, change the setting of `target.default-network-interface-type` in `mbed_app.json` to point to a different interface type, or add an overriding definition of `NetworkInterface::get_default_instance` to the application - this overrides any default supplied by the target board.
-
-To use Wi-Fi or other more complex EMAC drivers, necessary configuration parameters must be supplied, either using `mbed_app.json` or configuration in the `NetworkInterface::get_default_instance` override. Also, the driver must follow the guidelines of `EMACInterface` - the border router does not call the `EMACInterface`'s `connect` method, so the driver must work with only a `powerup` call to the `EMAC`.
-
-#### Note on CELL backhaul
-
-When `backhaul_driver` is set to `CELL`, the border router will use the target's default cellular device, as supplied by `CellularInterface::get_default_instance`. Cellular device must support IPv6 PPP connection mode. Board must supply the default Mbed OS cellular device or there must be an external cellular device that is configured to provide default cellular device to Mbed OS.
-
-### Switching the RF shield
-
-By default, the application uses an Atmel AT86RF233/212B RF driver. You can alternatively use any RF driver provided in the `drivers/` folder or link in your own driver. You can set the configuration for the RF driver in the `json` file.
-
-To select the Atmel radio shield, use:
-
-```
-        "radio-type":{
-            "help": "options are ATMEL, MCR20, SPIRIT1, S2LP",
-            "value": "ATMEL"
-        },
-```
-
-To select the NXP radio shield, use:
-
-```
-        "radio-type":{
-            "help": "options are ATMEL, MCR20, SPIRIT1, S2LP",
-            "value": "MCR20"
-        },
-```
-
-To select the STM Spirit1 radio shield, use:
-
-```
-        "radio-type":{
-            "help": "options are ATMEL, MCR20, SPIRIT1, S2LP",
-            "value": "SPIRIT1"
-        },
-```
-
-To select the STM S2LP radio shield, use:
-
-```
-        "radio-type":{
-            "help": "options are ATMEL, MCR20, SPIRIT1, S2LP",
-            "value": "S2LP"
-        },
-```
-
-If you have chosen the STM Spirit1 Sub-1 GHz RF expansion board [X-NUCLEO-IDS01A4](https://github.com/ARMmbed/stm-spirit1-rf-driver), you need to configure its MAC address in the `mbed_app.json` file. For example:
-
-```json
-    "target_overrides": {
-        "*": {
-            "spirit1.mac-address": "{0xf0, 0xf1, 0xf2, 0xf3, 0xf4, 0xf5, 0xf6, 0xf7}"
-        },
-    }
-```
-
-<span class="notes">**Note**: This MAC address must be unique within the 6LoWPAN mesh network.</span>
-
-After changing the radio shield, recompile the application.
-
-#### Wi-SUN RF shield
-
-Currently, only one radio shield, the STM S2LP radio shield, supports Wi-SUN.
-
-
-### Wi-SUN test configurations
-
-You can set the Border Router to fixed-channel mode by setting the channel function to fixed-channel, by defining the channel number and by setting the broadcast intervals:
-
-```
-        "uc-channel-function": 0,
-        "bc-channel-function": 0, 
-        "uc-fixed-channel": 11,
-        "bc-fixed-channel": 11,
-        "bc-dwell-interval": 255,
-        "bc-interval": 1020,
-```
-
-You can set the EAPOL group transient key (GTK) to a predefined value by setting the GTK0:
-
-```
-        "GTK0": "{0xBB, 0x06, 0x08, 0x57, 0x2C, 0xE1, 0x4D, 0x7B, 0xA2, 0xD1, 0x55, 0x49, 0x9C, 0xC8, 0x51, 0x9B}",
-```
-
-For the predefined GTK, the Wireshark IEEE 802.15.4 network decryption key can be calculated using SHA-256('Network name' || GTK0).
+Information come from https://forums.raspberrypi.com/viewtopic.php?t=241623
+- Download "[miniuart-ctsrts.dtbo](https://github.com/HiassofT/AtariSIO/blob/master/contrib/rpi/uart-ctsrts.dtbo?raw=true)" from https://github.com/HiassofT/AtariSIO/tree/master/contrib/rpi
+- Upload "miniuart-ctsrts.dtbo" to mbedap with sftp (with Windows, use [winSCP](https://winscp.net/eng/download.php))
+- cp miniuart-ctsrts.dtbo /boot/overlays/
+- Add "dtoverlay=miniuart-ctsrts" to /boot/config.txt
 
 ## File system support
 
@@ -326,7 +119,7 @@ After you have set the root path, Wi-SUN stack reads the configuration settings 
 
 Serial connection settings for the Nanorouter are as follows:
 
-* Baud-rate = 115200.
+* Baud-rate = 921600.
 * Data bits = 8.
 * Stop bits = 1.
 
