@@ -82,13 +82,13 @@ Nanostack Border Router offers the following configuration options for RPL:
 The Nanostack border router application can be connected to a backhaul network with a SLIP interface.
 https://github.com/ARMmbed/mbed-access-point provide images for Raspberry Pi 2B and 3 for routing between SLIP and Ethernet.
 
-| Raspberry Pi           |     | BRD4001A      |
-|------------------------|-----|---------------|
-| UART0_TXD GPIO14 J8_8  | --> | EXP14 PC5 RX  |
-| UART0_RXD GPIO15 J8_10 | <-- | EXP12 PC4 TX  |
-| UART0_CTS GPIO16 J8_36 | <-- | EXP10 PC3 RTS |
-| UART0_RTS GPIO17 J8_11 | --> | EXP8  PC2 CTS |
-| GND              J8_6  | <-> | EXP1      GND |
+| Raspberry Pi             ||| <-> ||| BRD4001A               |
+|-----------|--------|-------|-----|-------|-----|------------|
+| UART0_TXD | GPIO14 | J8_8  | --> | EXP14 | PC5 | USART3_RX  |
+| UART0_RXD | GPIO15 | J8_10 | <-- | EXP12 | PC4 | USART3_TX  |
+| UART0_CTS | GPIO16 | J8_36 | <-- | EXP10 | PC3 | USART3_RTS |
+| UART0_RTS | GPIO17 | J8_11 | --> | EXP8  | PC2 | USART3_CTS |
+| GND       |        | J8_6  | <-> | EXP1  |     | GND        |
 
 ##### Activation of flow control on the Raspberry Pi
 
@@ -153,11 +153,6 @@ In the PuTTY main screen, save the session, and click **Open**. This opens a con
 [INFO][brro]:    [2] 2001:999:21:9ce:0:ff:fe00:face
 [INFO][brro]: 6LoWPAN Border Router Bootstrap Complete.
 ```
-
-## Known Issues
-
-- RF shield is using Serial Peripheral Interface (SPI) for communication. Some NUCLEO boards (like NUCLEO_F429ZI) may have a pin [conflict](https://os.mbed.com/teams/ST/wiki/Nucleo-144pins-ethernet-spi-conflict) when SPI is used. 
-
 
 ## License and contributions
 
