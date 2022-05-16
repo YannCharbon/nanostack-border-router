@@ -58,6 +58,9 @@ static const uint8_t mac[] = MBED_CONF_APP_BACKHAUL_MAC;
 #error "MAC address not defined"
 #endif
 
+/* Override automatic GTK with fixed key */
+#define USE_FIXED_GTK
+
 #ifdef EFR32_CUSTOM_BOARD
 static DigitalOut enableVCOM(ENABLE_VCOM);
 #endif
