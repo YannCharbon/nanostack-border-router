@@ -93,7 +93,7 @@ https://github.com/ARMmbed/mbed-access-point provide images for Raspberry Pi 2B 
 ##### Activation of flow control on the Raspberry Pi
 
 Information come from https://forums.raspberrypi.com/viewtopic.php?t=241623
-- Download "[miniuart-ctsrts.dtbo](https://github.com/HiassofT/AtariSIO/blob/master/contrib/rpi/uart-ctsrts.dtbo?raw=true)" from https://github.com/HiassofT/AtariSIO/tree/master/contrib/rpi
+- Download "[miniuart-ctsrts.dtbo](https://github.com/HiassofT/AtariSIO/blob/master/contrib/rpi/miniuart-ctsrts.dtbo?raw=true)" from https://github.com/HiassofT/AtariSIO/tree/master/contrib/rpi
 - Upload "miniuart-ctsrts.dtbo" to mbedap with sftp (with Windows, use [winSCP](https://winscp.net/eng/download.php))
 - cp miniuart-ctsrts.dtbo /boot/overlays/
 - Add "dtoverlay=miniuart-ctsrts" to /boot/config.txt
