@@ -1,0 +1,5 @@
+TARGET_EFR32_CUSTOM/
+drivers/sal-stack-nanostack-slip/
+mbed-os/
+drivers/TARGET_MCUXpresso_MCUS/sal-nanostack-driver-k64f-eth/
+
