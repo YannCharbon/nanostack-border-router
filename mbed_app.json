@@ -42,7 +42,7 @@
         "bc-channel-function": "CHANNEL_FUNCTION_FIXED",
         "regulatory-domain": 3,
         "operating-class": 2,
-        "operating-mode": 3,
+        "operating-mode": "0x2a",
         "uc-fixed-channel": 0,
         "bc-fixed-channel": 0,
         "network-size": "0xffff",
