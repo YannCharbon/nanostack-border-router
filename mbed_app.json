@@ -45,6 +45,7 @@
         "operating-mode": 3,
         "uc-fixed-channel": 0,
         "bc-fixed-channel": 0,
+        "network-size": "0xffff",
         "network-name": "\"Wi-SUN Network\"",
         "certificate-header": {
             "help": "Certificate header",
@@ -88,13 +89,13 @@
             "SERIAL_RX": "PC5",
             "SERIAL_CTS": "PC2",
             "SERIAL_RTS": "PC3",
-            "mbed-mesh-api.wisun-network-size": 1
+            "app.network-size": 1
         },
         "DISCO_F769NI": {
             "app.radio-type": "S2LP",
             "app.backhaul-driver": "EMAC",
             "mbed-mesh-api.heap-size": 100000,
-            "mbed-mesh-api.wisun-network-size": 1
+            "app.network-size": 1
         }
     }
 }

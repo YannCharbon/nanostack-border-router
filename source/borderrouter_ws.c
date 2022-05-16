@@ -53,6 +53,7 @@
 #define WS_DEFAULT_BC_DWELL_INTERVAL 0
 #define WS_DEFAULT_UC_FIXED_CHANNEL 0xffff
 #define WS_DEFAULT_BC_FIXED_CHANNEL 0xffff
+#define WS_DEFAULT_NETWORK_SIZE 0xffff
 
 static mac_api_t *mac_api;
 static eth_mac_api_t *eth_mac_api;
@@ -115,6 +116,7 @@ typedef struct {
     uint8_t bc_dwell_interval;
     uint16_t uc_fixed_channel;
     uint16_t bc_fixed_channel;
+    uint16_t network_size;
 } ws_config_t;
 static ws_config_t ws_conf;
 
@@ -232,6 +234,11 @@ void load_config(void)
 #else
     ws_conf.bc_fixed_channel = WS_DEFAULT_BC_FIXED_CHANNEL;
 #endif //MBED_CONF_APP_BC_FIXED_CHANNEL
+#ifdef MBED_CONF_APP_NETWORK_SIZE
+    ws_conf.network_size = MBED_CONF_APP_NETWORK_SIZE;
+#else
+    ws_conf.network_size = WS_DEFAULT_NETWORK_SIZE;
+#endif //MBED_CONF_APP_NETWORK_SIZE
 }
 
 void wisun_rf_init()
@@ -311,6 +318,15 @@ static int wisun_interface_up(void)
         ret = ws_management_regulatory_domain_set(ws_br_handler.ws_interface_id, ws_conf.regulatory_domain, ws_conf.operating_class, ws_conf.operating_mode);
         if (ret != 0) {
             tr_error("Regulatory domain configuration failed %"PRIi32"", ret);
+            return -1;
+        }
+    }
+
+    if (ws_conf.network_name != WS_DEFAULT_NETWORK_SIZE) {
+
+        ret = ws_management_network_size_set(ws_br_handler.ws_interface_id, ws_conf.network_size);
+        if (ret != 0) {
+            tr_error("Network size configuration failed %"PRIi32"", ret);
             return -1;
         }
     }

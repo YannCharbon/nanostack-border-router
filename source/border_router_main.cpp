@@ -243,6 +243,8 @@ int main()
     mbed_trace_print_function_set(trace_printer);
     mbed_trace_config_set(TRACE_MODE_COLOR | APP_TRACE_LEVEL | TRACE_CARRIAGE_RETURN);
 
+    printf("################## VERSION 1.0 ##################\n");
+
     // Have to let mesh_system do net_init_core in case we use
     // Nanostack::add_ethernet_interface()
     mesh_system_init();
