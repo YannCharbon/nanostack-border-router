@@ -1,0 +1,15 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "➡️ Deploy/Update environment and libraries (Windows)",
+            "command": "vscode_deploy_windows.bat",
+            "args": ["EFR32_CUSTOM", "${workspaceFolderBasename}"]
+        },
+        {
+            "label": "➡️🐧 Deploy/Update environment and libraries (Linux)",
+            "command": "vscode_deploy_linux.sh",
+            "args": ["EFR32_CUSTOM", "${workspaceFolderBasename}"]
+        }
+    ]
+}

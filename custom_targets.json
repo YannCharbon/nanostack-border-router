@@ -39,7 +39,7 @@
             "full", "bare-metal"
         ]
     },
-    "SLWSTK6007A": {
+    "EFR32_CUSTOM": {
         "inherits": [
             "EFR32MG12P433F1024GM68"
         ],
@@ -108,6 +108,12 @@
         },
         "overrides": {
             "network-default-interface-type": "MESH"
-        }
+        },
+        "detect_code": [
+            "1234"
+        ]
+    },
+    "EFR32MG12_CUSTOM": {
+        "inherits"                          : ["EFR32_CUSTOM"]
     }
 }

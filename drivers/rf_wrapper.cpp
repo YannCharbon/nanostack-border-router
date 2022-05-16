@@ -31,8 +31,8 @@ NanostackRfPhys2lp rf_phy(S2LP_SPI_SDI, S2LP_SPI_SDO, S2LP_SPI_SCLK, S2LP_SPI_CS
 #endif //TEST_GPIOS_ENABLED
         S2LP_SPI_GPIO0, S2LP_SPI_GPIO1, S2LP_SPI_GPIO2, S2LP_SPI_GPIO3);
 #elif MBED_CONF_APP_RADIO_TYPE == EFR32
-#include "NanostackRfPhyEfr32.h"
-NanostackRfPhyEfr32 rf_phy;
+#include "efr32_rf_driver.h"
+Efr32RfDriver rf_phy;
 #endif //MBED_CONF_APP_RADIO_TYPE
 
 extern "C" int8_t rf_device_register()

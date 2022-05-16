@@ -1,0 +1,75 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "➡️ Deploy/Update environment and libraries (Windows)",
+            "command": "vscode_deploy_windows.bat",
+            "args": ["EFR32_CUSTOM", "${workspaceFolderBasename}"]
+        },
+        {
+            "label": "➡️🐧 Deploy/Update environment and libraries (Linux)",
+            "command": "vscode_deploy_linux.sh",
+            "args": ["EFR32_CUSTOM", "${workspaceFolderBasename}"]
+        },
+        {
+            "label": "===== BUILD EFR32 =====",
+            "command": ""
+        },
+        {
+            "label": "🔨 Build program (GCC)",
+            "command": "mbed",
+            "args": ["compile", "-m", "EFR32_CUSTOM", "-t", "GCC_ARM"]
+        },
+        {
+            "label": "🔨🐞 Build program (GCC debug)",
+            "command": "mbed",
+            "args": ["compile", "--profile=debug", "-m", "EFR32_CUSTOM", "-t", "GCC_ARM"]
+        },
+        {
+            "label": "===== BUILD DISCO F769 =====",
+            "command": ""
+        },
+        {
+            "label": "🔨🐞 Build program (GCC debug)",
+            "command": "mbed",
+            "args": ["compile", "--profile=debug", "-m", "DISCO_F769NI", "-t", "GCC_ARM"]
+        },
+        {
+            "label": "===== EFR32 Flash (Linux) =====",
+            "command": ""
+        },
+        {
+            "label": "🐧🚀 JLINK Flash board (GCC)",
+            "command": "JLinkExe",
+            "args": ["-device", "efr32mg12p433f1024gm68", "-autoconnect", "1", "-NoGui", "0", "-if", "SWD", "-Speed", "4000", "-CommandFile", "flashefr32custom.jlink"]
+        },
+        {
+            "label": "🐧🚀🐞 JLINK Flash board (GCC debug)",
+            "command": "JLinkExe",
+            "args": ["-device", "efr32mg12p433f1024gm68", "-autoconnect", "1", "-NoGui", "0", "-if", "SWD", "-Speed", "4000", "-CommandFile", "flashefr32custom_debug.jlink"]
+        },
+        {
+            "label": "===== DISCO L769 Flash (Linux) =====",
+            "command": ""
+        },
+        {
+            "label": "🚀🐞 Openocd flash (GCC debug) F769",
+            "command": "flash_stm32f769disco.bat",
+            "args": ["${workspaceFolderBasename}"]
+        },
+        {
+            "label": "===== Configs =====",
+            "command": ""
+        },
+        {
+            "label": "⚙️ Show config EFR32",
+            "command": "mbed",
+            "args": ["compile", "-m", "EFR32_CUSTOM", "-t", "GCC_ARM", "--config"]
+        },
+        {
+            "label": "⚙️ Show config F769",
+            "command": "mbed",
+            "args": ["compile", "-m", "DISCO_F769NI", "-t", "GCC_ARM", "--config"]
+        }
+    ]
+}

@@ -27,7 +27,7 @@ mbed-os/connectivity/drivers/lora/*
 mbed-os/connectivity/lorawan/*
 
 /* LWIP */
-mbed-os/connectivity/drivers/emac/*
+//mbed-os/connectivity/drivers/emac/*
 mbed-os/connectivity/lwipstack/*
 
 /* Mbed-client-cli */
@@ -38,14 +38,14 @@ mbed-os/features/frameworks/mbed-client-cli/*
 //mbed-os/connectivity/mbedtls/*
 
 /* Nanostack */
-mbed-os/connectivity/drivers/emac/*
+//mbed-os/connectivity/drivers/emac/*
 //mbed-os/connectivity/libraries/mbed-coap/*
 //mbed-os/connectivity/libraries/nanostack-libservice/*
 mbed-os/connectivity/libraries/ppp/*
 //mbed-os/connectivity/nanostack/*
 
 /* Netsocket */
-mbed-os/connectivity/drivers/emac/*
+//mbed-os/connectivity/drivers/emac/*
 //mbed-os/connectivity/netsocket/*
 mbed-os/libraries/mbed-coap/*
 mbed-os/libraries/ppp/*
@@ -55,7 +55,7 @@ mbed-os/connectivity/drivers/nfc/*
 mbed-os/connectivity/nfc/*
 
 /* RF */
-//mbed-os/connectivity/drivers/802.15.4_RF/*
+mbed-os/connectivity/drivers/802.15.4_RF/TARGET_Silicon_Labs/*
 
 /* Storage */
 mbed-os/storage/filesystem/*

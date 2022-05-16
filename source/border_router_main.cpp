@@ -58,7 +58,9 @@ static const uint8_t mac[] = MBED_CONF_APP_BACKHAUL_MAC;
 #error "MAC address not defined"
 #endif
 
+#ifdef EFR32_CUSTOM_BOARD
 static DigitalOut enableVCOM(ENABLE_VCOM);
+#endif
 
 static DigitalOut led1(MBED_CONF_APP_LED);
 
@@ -233,7 +235,9 @@ void appl_info_trace(void)
  */
 int main()
 {
+#ifdef EFR32_CUSTOM_BOARD
 	enableVCOM.write(1);
+#endif
 
     mbed_trace_init(); // set up the tracing library
     mbed_trace_print_function_set(trace_printer);
