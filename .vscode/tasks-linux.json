@@ -54,7 +54,7 @@
         },
         {
             "label": "🚀🐞 Openocd flash (GCC debug) F769",
-            "command": "flash_stm32f769disco.bat",
+            "command": "flash_stm32f769disco.sh",
             "args": ["${workspaceFolderBasename}"]
         },
         {

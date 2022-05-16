@@ -17,5 +17,5 @@ echo "go" >> flashefr32custom_debug.jlink
 echo "exit" >> flashefr32custom_debug.jlink
 # Update Tasks file for VSCode
 rm -f ./.vscode/tasks.json
-cp -f ./.vscode/tasks_linux.json ./.vscode/tasks.json
+cp -f ./.vscode/tasks-linux.json ./.vscode/tasks.json
 echo "The VScode tasks have been updated for Linux commands (restart VScode too see changes in task runner)"
