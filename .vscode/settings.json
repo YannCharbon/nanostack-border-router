@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "pa.h": "c",
-        "chrono": "cpp"
+        "chrono": "cpp",
+        "sw_mac_internal.h": "c"
     }
 }

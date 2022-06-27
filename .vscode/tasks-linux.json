@@ -8,7 +8,7 @@
         },
         {
             "label": "➡️🐧 Deploy/Update environment and libraries (Linux)",
-            "command": "vscode_deploy_linux.sh",
+            "command": "./vscode_deploy_linux.sh",
             "args": ["EFR32_CUSTOM", "${workspaceFolderBasename}"]
         },
         {
